@@ -47,4 +47,16 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         Log.v("LIFECYCLE", "onDestory()");
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.v("METHOD", "onSaveInstanceState()");
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.v("METHOD", "onRestoreInstanceState()");
+    }
 }
