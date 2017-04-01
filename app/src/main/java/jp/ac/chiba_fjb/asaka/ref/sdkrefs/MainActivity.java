@@ -1,88 +1,51 @@
 package jp.ac.chiba_fjb.asaka.ref.sdkrefs;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.Service;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Build;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.NotificationCompat;
 
 public class MainActivity extends AppCompatActivity {
+
+    ProgressDialog progressDialog;
+    int DIALOG_DISPLAY_LENGTH = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Notificationを送信
-        sendNotification();
+        // ProgressDialogの生成
+        progressDialog = getProgressDialog(this);
+        progressDialog.show();
+
+        // 3秒後にダイアログを消す
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+            }
+        }, DIALOG_DISPLAY_LENGTH);
 
     }
 
-    // Notificationを生成
-    private Notification getNotification(PendingIntent pendingIntent) {
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(this.getApplicationContext());
+    // ProgressDialogインスタンスを生成
+    private ProgressDialog getProgressDialog(Context ctx) {
+        ProgressDialog dialog = new ProgressDialog(ctx);
 
-        notification.setContentIntent(pendingIntent);
+        // プログレススタイルを設定
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-        // 通知時のテキスト
-        notification.setTicker("通知時のメッセージ");
+        // キャンセル可能に設定
+        dialog.setCancelable(true);
 
-        // アイコン
-        notification.setSmallIcon(R.mipmap.ic_launcher);
+        // タイトルを設定
+        dialog.setTitle("タイトル");
 
-        // Notificationを開いた時に表示されるタイトルとテキスト
-        notification.setContentTitle("タイトル");
-        notification.setContentText("メッセージ。");
+        // メッセージを設定
+        dialog.setMessage("メッセージ");
 
-        // IceCreamSandwich以降のみLargeIconを設定(参考までに)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            // LargeIconのBitmapを生成
-            Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-            notification.setLargeIcon(largeIcon);
-        }
-
-        // 通知するタイミング
-        notification.setWhen(System.currentTimeMillis());
-
-        // 通知時の音・バイブ・LED
-        notification.setDefaults(
-                Notification.DEFAULT_SOUND
-                        | Notification.DEFAULT_VIBRATE
-                        | Notification.DEFAULT_LIGHTS
-        );
-
-        // タップするとキャンセル
-        notification.setAutoCancel(true);
-
-        return notification.build();
+        return dialog;
     }
-
-    // Notificationを送信
-    private void sendNotification() {
-        // Notificationクリック時のPendingIntentを取得
-        PendingIntent pendingIntent = getPendingIntent();
-
-        // Notificationを取得
-        Notification notification = getNotification(pendingIntent);
-
-        // NotificationManagerインスタンスを取得
-        NotificationManager manager = (NotificationManager)getSystemService(Service.NOTIFICATION_SERVICE);
-
-        // Notificationを通知
-        manager.notify(0, notification);
-    }
-
-    // PendingIntentの生成
-    private PendingIntent getPendingIntent() {
-        Intent intent = new Intent(this, MainActivity.class);
-        return PendingIntent.getActivity(this,
-                0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-    }
-
 }
