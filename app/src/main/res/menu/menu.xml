@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <Item
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
         android:id="@+id/menu1"
-        android:title="Menu1" />
-    <Item
+        android:title="Menu1"
+        tools:ignore="HardcodedText" />
+    <item
         android:id="@+id/menu2"
         android:title="Menu2"
-        android:icon="@mipmap/ic_launcher_round" />
+        tools:ignore="HardcodedText"
+        android:icon="@mipmap/ic_launcher_round"/>
+
 </menu>
