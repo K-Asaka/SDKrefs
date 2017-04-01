@@ -14,8 +14,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(Menu.NONE, 0, 0, "Menu1");
-        menu.add(Menu.NONE, 1, 1, "Menu2");
+        menu.add(Menu.NONE, 0, 0, "Menu1").setIcon(R.mipmap.ic_launcher_round);
+        menu.add(Menu.NONE, 1, 1, "Menu2").setIcon(R.mipmap.ic_launcher);
         return super.onCreateOptionsMenu(menu);
     }
 }
