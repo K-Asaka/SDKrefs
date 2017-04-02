@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_1"
+        android:icon="@mipmap/ic_launcher"
+        android:showAsAction="ifRoom|withText"
+        android:title="メニュー1"
+        tools:ignore="AppCompatResource,HardcodedText" />
+
+    <item
+        android:id="@+id/menu_2"
+        android:icon="@mipmap/ic_launcher_round"
+        android:title="メニュー2"
+        android:showAsAction="ifRoom|withText"
+        tools:ignore="AppCompatResource,HardcodedText" />
+
+    <item android:id="@+id/menu_3"
+        android:icon="@mipmap/ic_launcher"
+        android:title="メニュー3"
+        android:showAsAction = "ifRoom|withText"
+        tools:ignore="AppCompatResource,HardcodedText" />
+
+</menu>
