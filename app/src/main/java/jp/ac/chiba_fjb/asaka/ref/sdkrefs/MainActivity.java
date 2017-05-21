@@ -1,15 +1,18 @@
 package jp.ac.chiba_fjb.asaka.ref.sdkrefs;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
+import android.support.v7.widget.ShareActionProvider;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.widget.Toast;
+import android.view.MenuItem;
 
-import static android.support.v7.widget.SearchView.*;
 
-public class MainActivity extends AppCompatActivity implements OnQueryTextListener{
+public class MainActivity extends AppCompatActivity {
+
+    private ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,23 +22,22 @@ public class MainActivity extends AppCompatActivity implements OnQueryTextListen
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.action_bar_menu, menu);
+        getMenuInflater().inflate(R.menu.action_bar_menu, menu);
 
-        SearchView searchView = (SearchView)menu.findItem(R.id.action_search).getActionView();
-        searchView.setOnQueryTextListener(this);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, "サンプルテキスト");
+
+        MenuItem shareItem = menu.findItem(R.id.menu_share);
+        mShareActionProvider = (ShareActionProvider)MenuItemCompat.getActionProvider(shareItem);
+        mShareActionProvider.setShareIntent(intent);
+
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        Toast.makeText(this, query, Toast.LENGTH_SHORT).show();
-        return false;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 
 }
