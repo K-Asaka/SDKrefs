@@ -1,43 +1,41 @@
 package jp.ac.chiba_fjb.asaka.ref.sdkrefs;
 
+import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Intent;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.ShareActionProvider;
+import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 
 
-public class MainActivity extends AppCompatActivity {
-
-    private ShareActionProvider mShareActionProvider;
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setActionBar();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_bar_menu, menu);
-
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, "サンプルテキスト");
-
-        MenuItem shareItem = menu.findItem(R.id.menu_share);
-        mShareActionProvider = (ShareActionProvider)MenuItemCompat.getActionProvider(shareItem);
-        mShareActionProvider.setShareIntent(intent);
-
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+    private void setActionBar() {
+        getActionBar().setDisplayShowCustomEnabled(true);
+        getActionBar().setDisplayShowTitleEnabled(false);
+        getActionBar().setIcon(null);
+        getActionBar().setDisplayShowHomeEnabled(false);
+        getActionBar().setDisplayUseLogoEnabled(false);
+
+        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View actionBarLayout = inflater.inflate(R.layout.sample_action_provider, null);
+        ActionBar.LayoutParams params = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
+        getActionBar().setCustomView(actionBarLayout, params);
+
     }
 
 }
